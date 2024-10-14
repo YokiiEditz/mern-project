@@ -27,4 +27,19 @@ const logout = async (req, res) => {
   res.cookie("access_token2", "").json({ status: "ok" });
 };
 
-module.exports = { login, logout };
+const profile = async (req, res) => {
+  const { access_token2 } = await req.cookies;
+  await jwt.verify(
+    access_token2,
+    process.env.ACCESS_TOKEN_SECRET,
+    {},
+    (err, info) => {
+      if (err) throw err;
+
+      console.log("token-server", info);
+      res.json(info);
+    }
+  );
+};
+
+module.exports = { login, logout, profile };

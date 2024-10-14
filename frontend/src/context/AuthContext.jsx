@@ -8,13 +8,10 @@ export function useAuth() {
 
 export const API_URL = "http://localhost:3002/api/auth";
 
-export const API_URL2 = "http://localhost:3002/api/admin";
-
 export const AuthContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
-  const [adminData, setAdminData] = useState(null);
 
-  const contextValues = { userData, setUserData, adminData, setAdminData };
+  const contextValues = { userData, setUserData };
 
   return (
     <>

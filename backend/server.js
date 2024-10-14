@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require("mongoose");
 const authRoutes = require("./router/authRoutes");
 const adminRoutes = require("./router/adminRoutes");
+const productRoutes = require("./router/productRoutes");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
@@ -28,6 +29,7 @@ mongoose
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/products", productRoutes);
 
 const PORT = 3002;
 app.listen(PORT, () => {

@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useAuth, API_URL2 } from "../../context/AuthContext";
+import { useAdmins, ADMIN_API_URL } from "../../context/AdminContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { setAdminData } = useAuth();
+  const { setAdminData } = useAdmins();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +19,7 @@ const Login = () => {
       };
       console.log("data", newUser);
 
-      const response = await fetch(API_URL2 + "/login", {
+      const response = await fetch(ADMIN_API_URL + "/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,6 +33,7 @@ const Login = () => {
         setAdminData(data);
         setEmail("");
         setPassword("");
+        navigate("/admin");
       } else {
         console.log("no response!!!");
       }

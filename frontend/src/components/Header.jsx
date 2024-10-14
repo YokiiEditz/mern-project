@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import { API_URL, API_URL2, useAuth } from "../context/AuthContext";
+import { API_URL, useAuth } from "../context/AuthContext";
+import { ADMIN_API_URL, useAdmins } from "../context/AdminContext";
 
 const Header = ({ role }) => {
-  const { userData, setUserData, adminData, setAdminData } = useAuth();
+  const { userData, setUserData } = useAuth();
+  const { adminData, setAdminData } = useAdmins();
 
   const navigate = useNavigate();
 
@@ -24,7 +26,7 @@ const Header = ({ role }) => {
   const adminLogout = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(API_URL2 + "/logout", {
+    const response = await fetch(ADMIN_API_URL + "/logout", {
       method: "POST",
       credentials: "include",
     });
@@ -78,9 +80,9 @@ const Header = ({ role }) => {
 
             <ul className="flex gap-4 items-center">
               {/* <Link to="/signup">Signup</Link> */}
+              <Link to="/admin/products">Products</Link>
               {adminData ? (
                 <>
-                  <Link to="/admin/additem">AddItem</Link>
                   <Link to="/admin">
                     <button onClick={adminLogout}>Logout</button>
                   </Link>
