@@ -49,8 +49,36 @@ const login = async (req, res) => {
   }
 };
 
+const profile = async (req, res) => {
+  const { access_token } = req.cookies;
+  // console.log("token-userprofile", access_token);
+
+  if (access_token) {
+    jwt.verify(
+      access_token,
+      process.env.ACCESS_TOKEN_SECRET,
+      {},
+      (err, decoded) => {
+        if (err) {
+          console.log("Token Error!");
+        }
+
+        const { userDatas } = decoded;
+        const { ...userInfo } = userDatas;
+        const { email } = userInfo._doc;
+        // console.log("user-info", userInfo._doc);
+
+        res.status(200).json({
+          email,
+          msg: "User Profile Success",
+        });
+      }
+    );
+  }
+};
+
 const logout = async (req, res) => {
   res.cookie("access_token", "").json({ status: "ok" });
 };
 
-module.exports = { register, login, logout };
+module.exports = { register, login, profile, logout };

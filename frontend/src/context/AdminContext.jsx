@@ -18,7 +18,7 @@ export const AdminContextProvider = ({ children }) => {
 
   useEffect(() => {
     const myCookie = Cookies.get("access_token2");
-    // console.log(myCookie);
+    // console.log("admin-token",myCookie);
     if (myCookie) {
       fetchAdminData();
       getProducts();
