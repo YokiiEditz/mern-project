@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useAuth, API_URL } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { setUserData } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +33,7 @@ const Login = () => {
         setUserData(data);
         setEmail("");
         setPassword("");
+        navigate("/");
       } else {
         console.log("no response!!!");
       }

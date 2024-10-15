@@ -10,9 +10,9 @@ const getProducts = async (req, res) => {
       count: allProducts.count,
       data: allProducts,
     });
+  } else {
+    console.log("Product not found!");
   }
-
-  console.log("Product not found!");
 };
 
 const createProduct = async (req, res) => {
@@ -54,4 +54,75 @@ const createProduct = async (req, res) => {
   }
 };
 
-module.exports = { getProducts, createProduct };
+const singleProduct = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const singleProduct = await Product.findById(id);
+
+    if (singleProduct) {
+      res.status(200).json(singleProduct);
+    } else {
+      console.log("Product not found!");
+    }
+  } catch (error) {
+    console.log("SingleProd Error!!" + error.message);
+  }
+};
+
+const editProduct = async (req, res) => {
+  const { id } = req.params;
+  const { pname, brand, description } = req.body;
+
+  try {
+    const prod = await Product.findById(id);
+
+    if (prod) {
+      const updated = await Product.updateOne(
+        { _id: prod._id },
+        {
+          $set: {
+            pname: pname || prod.pname,
+            brand: brand || prod.brand,
+            description: description || prod.description,
+            updatedAt: Date.now(),
+          },
+        },
+        {
+          new: true,
+          lean: true,
+        }
+      );
+      res.status(200).json(updated);
+    } else {
+      console.log("Product not updated!");
+    }
+  } catch (error) {
+    console.log("editItem Error!!" + error.message);
+  }
+};
+
+const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deleteItem = await Product.deleteOne({ _id: id });
+
+    if (deleteItem) {
+      res.status(200).json({ msg: "Product Deleted success" });
+      console.log("Item deleted", deleteItem);
+    } else {
+      console.log("Product not deleted!");
+    }
+  } catch (error) {
+    console.log("Delete Error!!" + error.message);
+  }
+};
+
+module.exports = {
+  getProducts,
+  createProduct,
+  singleProduct,
+  editProduct,
+  deleteProduct,
+};

@@ -12,8 +12,9 @@ export const ADMIN_API_URL = "http://localhost:3002/api/admin";
 
 export const AdminContextProvider = ({ children }) => {
   const [adminData, setAdminData] = useState(null);
-  const [products, setProducts] = useState(null);
   const [dataChanged, setDataChanged] = useState(false);
+  const [products, setProducts] = useState(null);
+  // console.log("Admin context", adminData);
 
   useEffect(() => {
     const myCookie = Cookies.get("access_token2");

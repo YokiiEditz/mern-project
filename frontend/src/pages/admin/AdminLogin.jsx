@@ -17,7 +17,6 @@ const Login = () => {
         email,
         password,
       };
-      console.log("data", newUser);
 
       const response = await fetch(ADMIN_API_URL + "/login", {
         method: "POST",

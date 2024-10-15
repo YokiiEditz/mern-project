@@ -10,7 +10,7 @@ export const API_URL = "http://localhost:3002/api/auth";
 
 export const AuthContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
-
+  // console.log("User context", userData);
   const contextValues = { userData, setUserData };
 
   return (

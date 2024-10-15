@@ -47,9 +47,6 @@ const Header = ({ role }) => {
           >
             <h1 className="text-2xl">
               <Link to="/">Shopify</Link>
-              <Link to="/admin">
-                <span className="pl-10 text-black">AdminPage</span>
-              </Link>
             </h1>
 
             <ul className="flex gap-4 items-center">

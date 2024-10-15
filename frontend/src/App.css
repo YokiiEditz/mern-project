@@ -8,6 +8,11 @@
   font-family: "Roboto", sans-serif;
 }
 
+/*for links*/
+a {
+  display: inline-block;
+}
+
 .yoki {
   border: 2px solid red;
 }

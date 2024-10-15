@@ -9,8 +9,10 @@ const login = async (req, res) => {
     const dbUser = await Admin.findOne({ email, password });
 
     if (dbUser) {
-      console.log("admin", dbUser);
-      const token = await jwt.sign({ dbUser }, process.env.ACCESS_TOKEN_SECRET);
+      // console.log("admin", dbUser);
+      const { password: hash, ...values } = dbUser._doc;
+      // console.log("data s", values);
+      const token = await jwt.sign({ values }, process.env.ACCESS_TOKEN_SECRET);
 
       res
         .cookie("access_token2", token)
