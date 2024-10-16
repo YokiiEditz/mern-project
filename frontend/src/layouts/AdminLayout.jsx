@@ -5,7 +5,7 @@ const AdminLayout = () => {
   return (
     <div>
       <Header role="admin" />
-      Admin Layout is here
+
       <Outlet />
     </div>
   );

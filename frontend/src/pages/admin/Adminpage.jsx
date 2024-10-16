@@ -5,7 +5,6 @@ const Adminpage = () => {
   return (
     <div>
       <AdminDashBoard />
-      <div>this is admin page</div>
     </div>
   );
 };

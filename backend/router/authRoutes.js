@@ -19,6 +19,7 @@ router.post("/login", login);
 router.get("/profile", profile);
 router.post("/logout", logout);
 
+//for get all users
 router.get("/allUsers", getUsers);
 
 router.get("/product", getAllProducts);
