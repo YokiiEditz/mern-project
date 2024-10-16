@@ -5,6 +5,7 @@ import UserLayout from "./layouts/UserLayout";
 import Homepage from "./pages/user/Homepage";
 import Register from "./pages/user/Register";
 import Login from "./pages/user/Login";
+import Cart from "./pages/user/Cart";
 
 import { useAuth } from "./context/AuthContext";
 import { useAdmins } from "./context/AdminContext";
@@ -22,19 +23,32 @@ const App = () => {
 
   return (
     <div>
-      {/* User */}
       <Routes>
+        {/* User */}
+
         <Route path="/" element={<UserLayout />}>
           <Route
             index
-            element={userData ? <Homepage /> : <Navigate to="/login" />}
+            element={!userData ? <Navigate to="/login" /> : <Homepage />}
           />
           <Route path="signup" element={<Register />} />
-          <Route path="login" element={<Login />} />
+          <Route
+            path="login"
+            //element={<Login />}
+            element={!userData ? <Login /> : <Navigate to="/" />}
+          />
+          <Route
+            path="cart"
+            //element={<Login />}
+            element={!userData ? <Login /> : <Cart />}
+          />
         </Route>
 
-        {/* Admin */}
+        {/*    */}
+
         <Route path="admin" element={<AdminLayout />}>
+          {/* Admin */}
+
           <Route
             index
             element={adminData ? <Adminpage /> : <Navigate to="/admin/login" />}
@@ -46,9 +60,10 @@ const App = () => {
           />
           <Route
             path="products"
-            //element={<Products />}
-            element={adminData ? <Products /> : <Navigate to="/admin/login" />}
+            // element={<Products />}
+            element={!adminData ? <Navigate to="/admin/login" /> : <Products />}
           />
+
           <Route path="products/:id" element={<EditItem />} />
         </Route>
       </Routes>

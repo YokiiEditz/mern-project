@@ -5,6 +5,8 @@ import { API_URL, useAdmins } from "../../context/AdminContext";
 export const AddItem = ({ addPopup, setAddPopup }) => {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
+  const [image, setImage] = useState("");
+  const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
 
   const { dataChanged, setDataChanged } = useAdmins();
@@ -16,6 +18,8 @@ export const AddItem = ({ addPopup, setAddPopup }) => {
       const data = {
         pname: name,
         brand: brand,
+        image: image,
+        price: price,
         description: description,
       };
 
@@ -32,6 +36,8 @@ export const AddItem = ({ addPopup, setAddPopup }) => {
         console.log("Product is added");
         setDataChanged(!dataChanged);
         setAddPopup(!addPopup);
+      } else {
+        console.log("Product not added");
       }
     }
   };
@@ -70,6 +76,30 @@ export const AddItem = ({ addPopup, setAddPopup }) => {
                       value={brand}
                       onChange={(e) => setBrand(e.target.value)}
                       placeholder="Enter brand"
+                    />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="py-3 pr-2 text-right">Image:</td>
+                  <td>
+                    <input
+                      type="text"
+                      value={image}
+                      onChange={(e) => setImage(e.target.value)}
+                      placeholder="Enter Image"
+                    />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="py-3 pr-2 text-right">Price:</td>
+                  <td>
+                    <input
+                      type="text"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                      placeholder="Enter price"
                     />
                   </td>
                 </tr>

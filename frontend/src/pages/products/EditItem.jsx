@@ -6,6 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 export const EditItem = ({ editPopup, setEditPopup }) => {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
+  const [image, setImage] = useState("");
+  const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const { dataChanged, setDataChanged } = useAdmins();
 
@@ -23,8 +25,12 @@ export const EditItem = ({ editPopup, setEditPopup }) => {
 
     if (response.ok) {
       const data = await response.json();
+      setDataChanged(!dataChanged);
+
       setName(data.pname);
       setBrand(data.brand);
+      setImage(data.image);
+      setPrice(data.price);
       setDescription(data.description);
     } else {
       console.log("No response!!!");
@@ -40,6 +46,8 @@ export const EditItem = ({ editPopup, setEditPopup }) => {
       const data = {
         pname: name,
         brand: brand,
+        image: image,
+        price: price,
         description: description,
       };
 
@@ -95,6 +103,30 @@ export const EditItem = ({ editPopup, setEditPopup }) => {
                       value={brand}
                       onChange={(e) => setBrand(e.target.value)}
                       placeholder="Enter brand"
+                    />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="py-3 pr-2 text-right">Image:</td>
+                  <td>
+                    <input
+                      type="text"
+                      value={image}
+                      onChange={(e) => setImage(e.target.value)}
+                      placeholder="Enter Image"
+                    />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="py-3 pr-2 text-right">Price:</td>
+                  <td>
+                    <input
+                      type="text"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                      placeholder="Enter price"
                     />
                   </td>
                 </tr>

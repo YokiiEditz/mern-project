@@ -55,6 +55,8 @@ const Products = () => {
               <th className="py-3">S.No</th>
               <th>Name</th>
               <th>Brand</th>
+              <th>Image</th>
+              <th>Price</th>
               <th>Description</th>
               <th>Edit</th>
               <th>Delete</th>
@@ -68,6 +70,13 @@ const Products = () => {
                   <td className="py-5">{idx + 1}</td>
                   <td>{item.pname}</td>
                   <td>{item.brand}</td>
+                  <td>
+                    <img
+                      src={item.image}
+                      className="w-[100px] h-[100px] p-1 object-contain"
+                    />
+                  </td>
+                  <td>{item.price}</td>
                   <td>{item.description}</td>
                   <td>
                     <Link to={`/admin/products/${item._id}`}>

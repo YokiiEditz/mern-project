@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Product = require("../models/product");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -81,4 +82,16 @@ const logout = async (req, res) => {
   res.cookie("access_token", "").json({ status: "ok" });
 };
 
-module.exports = { register, login, profile, logout };
+const getAllProducts = async (req, res) => {
+  try {
+    const allProducts = await Product.find({}).lean();
+    const restProds = allProducts.map(({ adminId, ...rest }) => rest);
+    // console.log("docs", restProds);
+
+    res.status(200).json(restProds);
+  } catch (error) {
+    console.log("User products Error!" + error.message);
+  }
+};
+
+module.exports = { register, login, profile, logout, getAllProducts };

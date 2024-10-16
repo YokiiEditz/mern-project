@@ -10,9 +10,9 @@ const login = async (req, res) => {
 
     if (dbUser) {
       // console.log("admin", dbUser);
-      const { password: hash, ...values } = dbUser._doc;
+      const { password: hash, ...userInfo } = dbUser._doc;
       // console.log("data s", values);
-      const token = await jwt.sign({ values }, process.env.ACCESS_TOKEN_SECRET);
+      const token = jwt.sign({ userInfo }, process.env.ACCESS_TOKEN_SECRET);
 
       res
         .cookie("access_token2", token)
@@ -40,8 +40,8 @@ const profile = async (req, res) => {
       (err, info) => {
         if (err) throw err;
 
-        console.log("token-server", info);
-        res.json(info);
+        // console.log("token-server", info);
+        res.status(200).json(info);
       }
     );
   }

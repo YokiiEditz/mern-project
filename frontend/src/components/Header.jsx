@@ -3,7 +3,7 @@ import { API_URL, useAuth } from "../context/AuthContext";
 import { ADMIN_API_URL, useAdmins } from "../context/AdminContext";
 
 const Header = ({ role }) => {
-  const { userData, setUserData } = useAuth();
+  const { userData, setUserData, cart } = useAuth();
   const { adminData, setAdminData } = useAdmins();
 
   const navigate = useNavigate();
@@ -46,13 +46,23 @@ const Header = ({ role }) => {
             className={`h-[50px] border p-2 flex justify-between items-center text-white bg-gray-500`}
           >
             <h1 className="text-2xl">
-              <Link to="/">Shopify</Link>
+              <Link to="/admin">Shopify-A</Link>
             </h1>
 
             <ul className="flex gap-4 items-center">
               {userData ? (
                 <>
                   <Link to="/">Home</Link>
+                  <Link to="/cart">
+                    Cart
+                    {cart.length > 0 ? (
+                      <span className="bg-white mx-1 px-1 border rounded-full text-black">
+                        {cart.length}
+                      </span>
+                    ) : (
+                      ""
+                    )}
+                  </Link>
                   <Link to="/logout">
                     <button onClick={logout}>Logout</button>
                   </Link>
@@ -72,7 +82,7 @@ const Header = ({ role }) => {
             className={`h-[50px] border p-2 flex justify-between items-center text-white bg-black opacity-80`}
           >
             <h1 className="text-2xl">
-              <Link to="/">Admin</Link>
+              <Link to="/">Admin-U</Link>
             </h1>
 
             <ul className="flex gap-4 items-center">

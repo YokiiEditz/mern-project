@@ -1,5 +1,4 @@
 const Product = require("../models/product");
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const getProducts = async (req, res) => {
@@ -16,7 +15,7 @@ const getProducts = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-  const { pname, brand, description } = req.body;
+  const { pname, brand, image, price, description } = req.body;
   const { access_token2 } = req.cookies;
   try {
     if (!access_token2) {
@@ -28,17 +27,20 @@ const createProduct = async (req, res) => {
       access_token2,
       process.env.ACCESS_TOKEN_SECRET,
       {},
-      async (err, userinfo) => {
+      async (err, decoded) => {
         if (err) {
           console.log("Token is not here!");
           res.status(404).json({ message: "Token is must be required!" });
         }
 
+        // console.log("userinfo-token", decoded);
         const data = {
           pname,
           brand,
+          image,
+          price,
           description,
-          adminId: userinfo.dbUser._id,
+          adminId: decoded.userInfo._id,
         };
 
         const newProduct = await Product.create(data);
@@ -72,7 +74,7 @@ const singleProduct = async (req, res) => {
 
 const editProduct = async (req, res) => {
   const { id } = req.params;
-  const { pname, brand, description } = req.body;
+  const { pname, brand, image, price, description } = req.body;
 
   try {
     const prod = await Product.findById(id);
@@ -84,6 +86,8 @@ const editProduct = async (req, res) => {
           $set: {
             pname: pname || prod.pname,
             brand: brand || prod.brand,
+            price: price || prod.price,
+            image: image || prod.image,
             description: description || prod.description,
             updatedAt: Date.now(),
           },
