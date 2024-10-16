@@ -16,7 +16,7 @@ const Header = ({ role }) => {
       credentials: "include",
     });
 
-    if (response) {
+    if (response.ok) {
       setUserData(null);
       navigate("/");
       console.log("User is logout");
@@ -33,6 +33,8 @@ const Header = ({ role }) => {
 
     if (response) {
       setAdminData(null);
+      localStorage.removeItem("shopping-cart");
+      // localStorage.setItem("shopping-cart", JSON.stringify([]));
       navigate("/admin");
       console.log("Admin is logout");
     }
