@@ -82,6 +82,16 @@ const logout = async (req, res) => {
   res.cookie("access_token", "").json({ status: "ok" });
 };
 
+const getUsers = async (req, res) => {
+  try {
+    const allUsers = await User.find({}).lean();
+    // console.log("allusers", allUsers);
+    res.status(200).json(allUsers);
+  } catch (error) {
+    console.log("All User GET Error!" + error.message);
+  }
+};
+
 const getAllProducts = async (req, res) => {
   try {
     const allProducts = await Product.find({}).lean();
@@ -94,4 +104,4 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-module.exports = { register, login, profile, logout, getAllProducts };
+module.exports = { register, login, profile, logout, getUsers, getAllProducts };

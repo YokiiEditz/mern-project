@@ -2,8 +2,36 @@ import { Link } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
+import { API_URL } from "../../context/AuthContext";
+import { useAdmins } from "../../context/AdminContext";
+import { useEffect, useState } from "react";
 
 const AdminDashBoard = () => {
+  const { products, adminData } = useAdmins();
+  const [usersList, setUsersList] = useState();
+  const [ordersList, setOrdersList] = useState();
+
+  useEffect(() => {
+    if (adminData) {
+      fetchAllUsers();
+      setOrdersList("");
+    }
+  }, [usersList, adminData]);
+
+  const fetchAllUsers = async () => {
+    const response = await fetch(API_URL + "/allUsers", {
+      method: "GET",
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      // console.log("alluser-data", data);
+      setUsersList(data);
+    } else {
+      console.log("No data from fetched");
+    }
+  };
+
   return (
     <>
       <div className="max-w-[850px] mx-auto p-5 flex justify-between items-center">
@@ -18,13 +46,15 @@ const AdminDashBoard = () => {
           </div>
 
           <div className="my-3">
-            <p>
-              <span className="text-xl font-bold pr-1">Count:</span>
-              15
+            <p className="text-gray-500">
+              Products Count:
+              <span className="text-xl text-black font-bold px-1">
+                {products && products.length}
+              </span>
             </p>
 
             <button className="button">
-              <Link to="/admin/additem">Add Product</Link>
+              <Link to="/admin/products">Add Product</Link>
             </button>
           </div>
         </section>
@@ -40,7 +70,31 @@ const AdminDashBoard = () => {
           </div>
 
           <div className="my-3">
-            <p>User list:</p>
+            <p className="text-gray-500">
+              No of Users:
+              <span className="text-xl text-black font-bold px-1">
+                {usersList && usersList.length}
+              </span>
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-sm">List of Users:</h2>
+
+            <div>
+              {/*User name in display */}
+              {usersList &&
+                usersList.map((user, idx) => (
+                  <div key={idx} className="flex items-center gap-1">
+                    {idx + 1}.
+                    <p>
+                      <span className="capitalize">
+                        {user?.email.split("@")[0]}
+                      </span>
+                    </p>
+                  </div>
+                ))}
+            </div>
           </div>
         </section>
 
@@ -55,7 +109,16 @@ const AdminDashBoard = () => {
           </div>
 
           <div className="my-3">
-            <p>Orders list:</p>
+            <p className="text-gray-500">
+              List of Users:
+              <span className="text-xl text-black font-bold px-1">
+                {ordersList ? (
+                  ordersList.length
+                ) : (
+                  <span className="text-sm text-gray-600">No orders yet</span>
+                )}
+              </span>
+            </p>
           </div>
         </section>
       </div>
@@ -64,11 +127,3 @@ const AdminDashBoard = () => {
 };
 
 export default AdminDashBoard;
-
-export const ProductsList = () => {
-  return <div>ProductsList</div>;
-};
-
-export const UsersList = () => {
-  return <div>UsersList</div>;
-};

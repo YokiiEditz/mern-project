@@ -6,6 +6,7 @@ const {
   login,
   profile,
   logout,
+  getUsers,
   getAllProducts,
 } = require("../controllers/authController");
 
@@ -17,6 +18,9 @@ router.post("/register", register);
 router.post("/login", login);
 router.get("/profile", profile);
 router.post("/logout", logout);
+
+router.get("/allUsers", getUsers);
+
 router.get("/product", getAllProducts);
 
 module.exports = router;
