@@ -14,9 +14,10 @@ export const EditItem = ({ editPopup, setEditPopup }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const postId = id;
+
   useEffect(() => {
     fetchSingleItem();
-  }, []);
+  }, [postId]);
 
   const fetchSingleItem = async () => {
     const response = await fetch(API_URL + `/${postId}`, {
