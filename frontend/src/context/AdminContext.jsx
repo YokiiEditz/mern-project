@@ -7,8 +7,13 @@ export function useAdmins() {
   return useContext(AdminContext);
 }
 
-export const API_URL = "http://localhost:3002/api/products";
-export const ADMIN_API_URL = "http://localhost:3002/api/admin";
+// LIVE_PAGE_URL = "https://ecoms-mern.onrender.com/";
+
+// export const API_URL = "http://localhost:3002/api/products";
+// export const ADMIN_API_URL = "http://localhost:3002/api/admin";
+
+export const API_URL = "https://ecoms-mern.onrender.com/api/products";
+export const ADMIN_API_URL = "https://ecoms-mern.onrender.com/api/admin";
 
 export const AdminContextProvider = ({ children }) => {
   const [adminData, setAdminData] = useState(null);

@@ -7,7 +7,11 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-export const API_URL = "http://localhost:3002/api/auth";
+// LIVE_PAGE_URL = "https://ecoms-mern.onrender.com/";
+
+// export const API_URL = "http://localhost:3002/api/auth";
+("https://ecoms-mern.onrender.com/");
+export const API_URL = "https://ecoms-mern.onrender.com/api/auth";
 
 export const AuthContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
